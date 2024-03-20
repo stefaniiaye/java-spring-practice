@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface DisplayInterface {
     public void displayDict(List<Entry> entries);
+    public String displayWord(String word);
 }

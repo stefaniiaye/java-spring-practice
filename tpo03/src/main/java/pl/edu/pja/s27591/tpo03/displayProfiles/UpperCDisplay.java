@@ -17,4 +17,9 @@ public class UpperCDisplay implements DisplayInterface {
                     + "\t" + "(PL) " + entry.getPl().toUpperCase());
         }
     }
+
+    @Override
+    public String displayWord(String word) {
+        return word.toUpperCase();
+    }
 }

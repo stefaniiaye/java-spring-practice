@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: original
+    active: lowercase
   banner:
     location: logo-app
     charset : utf-8

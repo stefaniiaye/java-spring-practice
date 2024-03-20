@@ -77,7 +77,8 @@ public class FlashcardsController {
         String input;
         switch (lang){
             case 0 -> {
-                System.out.println("(Eng) " + entryRepoInterface.getEntries().get(word).getEng());
+                System.out.println("(Eng) " +
+                        displayInterface.displayWord(entryRepoInterface.getEntries().get(word).getEng()));
                 System.out.println("Now enter this word in german: ");
                 input = scanner.nextLine();
                 while (!input.equalsIgnoreCase(entryRepoInterface.getEntries().get(word).getDe())){
@@ -93,7 +94,8 @@ public class FlashcardsController {
                 System.out.println("Good job! Everything is correct!");
             }
             case 1 -> {
-                System.out.println("(De) " + entryRepoInterface.getEntries().get(word).getDe());
+                System.out.println("(De) " +
+                        displayInterface.displayWord(entryRepoInterface.getEntries().get(word).getDe()));
                 System.out.println("Now enter this word in english: ");
                 input = scanner.nextLine();
                 while (!input.equalsIgnoreCase(entryRepoInterface.getEntries().get(word).getEng())){
@@ -109,7 +111,8 @@ public class FlashcardsController {
                 System.out.println("Good job! Everything is correct!");
             }
             case 2 -> {
-                System.out.println("(Pl) " + entryRepoInterface.getEntries().get(word).getPl());
+                System.out.println("(Pl) " +
+                        displayInterface.displayWord(entryRepoInterface.getEntries().get(word).getPl()));
                 System.out.println("Now enter this word in english: ");
                 input = scanner.nextLine();
                 while (!input.equalsIgnoreCase(entryRepoInterface.getEntries().get(word).getEng())){

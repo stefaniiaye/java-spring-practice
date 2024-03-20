@@ -17,4 +17,9 @@ public class LowerCDisplay implements DisplayInterface{
                     "\t" + "(pl) " + entry.getPl().toLowerCase());
         }
     }
+
+    @Override
+    public String displayWord(String word) {
+        return word.toLowerCase();
+    }
 }

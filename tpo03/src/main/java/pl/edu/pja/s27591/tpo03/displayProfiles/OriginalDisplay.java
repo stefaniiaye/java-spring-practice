@@ -18,4 +18,9 @@ public class OriginalDisplay implements DisplayInterface {
             System.out.println("(Eng) " + entry.getEng() + "\t" + "(De) " + entry.getDe() + "\t" + "(Pl) " + entry.getPl());
         }
     }
+
+    @Override
+    public String displayWord(String word) {
+        return word;
+    }
 }
