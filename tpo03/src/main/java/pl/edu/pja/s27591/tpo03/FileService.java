@@ -1,3 +1,4 @@
+/*
 package pl.edu.pja.s27591.tpo03;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -44,3 +45,4 @@ public class FileService {
         bw.close();
     }
 }
+*/

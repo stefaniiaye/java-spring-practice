@@ -9,10 +9,6 @@ import java.util.Scanner;
 @Configuration
 public class AppConfig {
     @Bean
-    public FileService fileService(@Value("${pl.edu.pja.tpo02.filename}") String filename) {
-        return new FileService(filename, entryRepository());
-    }
-    @Bean
     public Scanner scanner() {
         return new Scanner(System.in);
     }

@@ -9,14 +9,14 @@ import java.util.Scanner;
 @Controller
 public class FlashcardsController {
     private final EntryRepoInterface entryRepoInterface;
-    private final FileService fileService;
+    //private final FileService fileService;
     private DisplayInterface displayInterface;
     private final Scanner scanner;
 
     @Autowired
-    public FlashcardsController(EntryRepoInterface entryRepoInterface, FileService fileService, DisplayInterface displayInterface, Scanner scanner) {
+    public FlashcardsController(EntryRepoInterface entryRepoInterface, DisplayInterface displayInterface, Scanner scanner) {
         this.entryRepoInterface = entryRepoInterface;
-        this.fileService = fileService;
+        //this.fileService = fileService;
         this.displayInterface = displayInterface;
         this.scanner = scanner;
     }
@@ -67,7 +67,7 @@ public class FlashcardsController {
         String de = scanner.nextLine();
         System.out.print("Finally, enter polish translation: ");
         String pl = scanner.nextLine();
-        fileService.addNewEntry(new Entry(eng,de,pl));
+        entryRepoInterface.addEntry(new Entry(eng, de, pl));
         System.out.println("New word has been added to the dictionary!");
     }
 
