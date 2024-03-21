@@ -12,9 +12,9 @@ public class AppConfig {
         return new Scanner(System.in);
     }
 
-    @Bean
+   /* @Bean
     public EntryRepository entryRepository() {
         return new EntryRepository();
-    }
+    }*/
 
 }

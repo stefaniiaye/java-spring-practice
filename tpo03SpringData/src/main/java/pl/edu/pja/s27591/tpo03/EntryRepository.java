@@ -1,3 +1,4 @@
+/*
 package pl.edu.pja.s27591.tpo03;
 
 import jakarta.persistence.EntityManager;
@@ -61,3 +62,4 @@ public class EntryRepository implements EntryRepoInterface {
 }
 
 
+*/
