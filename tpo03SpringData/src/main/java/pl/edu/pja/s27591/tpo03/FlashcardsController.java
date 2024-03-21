@@ -1,6 +1,7 @@
 package pl.edu.pja.s27591.tpo03;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class FlashcardsController {
             System.out.println("7. Exit");
             System.out.print("Choose an option: ");
 
-            if(scanner.hasNextInt()) {
+            if (scanner.hasNextInt()) {
                 int option = scanner.nextInt();
                 scanner.nextLine();
 
@@ -48,17 +49,17 @@ public class FlashcardsController {
                         System.out.print("Enter the word to search for: ");
                         String searchTerm = scanner.nextLine();
                         List<Entry> searchResults = entryRepoInterface.searchEntries(searchTerm);
-                        if(!searchResults.isEmpty()) {
+                        if (!searchResults.isEmpty()) {
                             System.out.println("Here is what was found");
                             displayInterface.displayDict(searchResults);
-                        }else System.out.println("No results.");
+                        } else System.out.println("No results.");
                         break;
                     case 4:
                         System.out.print("Here is your word: ");
                         test();
                         break;
                     case 5:
-                       // modifyRecord();
+                        modifyRecord();
                         break;
                     case 6:
                         deleteRecord();
@@ -69,7 +70,7 @@ public class FlashcardsController {
                     default:
                         System.out.println("Oops, there is no such option. Please try again.");
                 }
-            }else {
+            } else {
                 System.out.println("Oops, there is no such option. Please try again.");
                 scanner.next();
             }
@@ -88,22 +89,22 @@ public class FlashcardsController {
     }
 
     private void test() {
-        int word = (int)(Math.random()*entryRepoInterface.findAll().size()-1);
-        int lang = (int)(Math.random()*2);
+        int word = (int) (Math.random() * entryRepoInterface.findAll().size() - 1);
+        int lang = (int) (Math.random() * 2);
         String input;
-        switch (lang){
+        switch (lang) {
             case 0 -> {
                 System.out.println("(Eng) " +
                         displayInterface.displayWord(entryRepoInterface.findAll().get(word).getEng()));
                 System.out.println("Now enter this word in german: ");
                 input = scanner.nextLine();
-                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getDe())){
+                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getDe())) {
                     System.out.println("Oops, that is incorrect, try again: ");
                     input = scanner.nextLine();
                 }
                 System.out.println("Well done!\nNow enter polish translation: ");
                 input = scanner.nextLine();
-                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getPl())){
+                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getPl())) {
                     System.out.println("Oops, that is incorrect, try again: ");
                     input = scanner.nextLine();
                 }
@@ -114,13 +115,13 @@ public class FlashcardsController {
                         displayInterface.displayWord(entryRepoInterface.findAll().get(word).getDe()));
                 System.out.println("Now enter this word in english: ");
                 input = scanner.nextLine();
-                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getEng())){
+                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getEng())) {
                     System.out.println("Oops, that is incorrect, try again: ");
                     input = scanner.nextLine();
                 }
                 System.out.println("Well done!\nNow enter polish translation: ");
                 input = scanner.nextLine();
-                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getPl())){
+                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getPl())) {
                     System.out.println("Oops, that is incorrect, try again: ");
                     input = scanner.nextLine();
                 }
@@ -131,13 +132,13 @@ public class FlashcardsController {
                         displayInterface.displayWord(entryRepoInterface.findAll().get(word).getPl()));
                 System.out.println("Now enter this word in english: ");
                 input = scanner.nextLine();
-                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getEng())){
+                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getEng())) {
                     System.out.println("Oops, that is incorrect, try again: ");
                     input = scanner.nextLine();
                 }
                 System.out.println("Well done!\nNow enter german translation: ");
                 input = scanner.nextLine();
-                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getDe())){
+                while (!input.equalsIgnoreCase(entryRepoInterface.findAll().get(word).getDe())) {
                     System.out.println("Oops, that is incorrect, try again: ");
                     input = scanner.nextLine();
                 }
@@ -169,7 +170,7 @@ public class FlashcardsController {
             scanner.nextLine();
 
             switch (option) {
-                /*case 1:
+                case 1:
                     displaySortedDict("eng", true);
                     break;
                 case 2:
@@ -190,9 +191,10 @@ public class FlashcardsController {
                 case 7:
                     return;
                 default:
-                    System.out.println("Invalid option. Returning to main menu.");*/
+                    System.out.println("Invalid option. Returning to main menu.");
 
-        }
+
+            }
         } else if (sortOption == 2) {
             displayInterface.displayDict(entryRepoInterface.findAll());
         } else {
@@ -200,9 +202,15 @@ public class FlashcardsController {
         }
     }
 
-    /*private void displaySortedDict(String lang, boolean asc) {
-        displayInterface.displayDict(entryRepoInterface.sortEntriesByLanguage(lang, asc));
-    }*/
+    public void displaySortedDict(String lang, boolean asc) {
+        Sort sort = Sort.by(lang);
+        if (!asc) {
+            sort = sort.descending();
+        }
+        List<Entry> sortedEntries = entryRepoInterface.findAll(sort);
+        displayInterface.displayDict(sortedEntries);
+    }
+
 
     private void deleteRecord() {
         System.out.print("Enter a keyword to search for the word you want to delete: ");
@@ -244,7 +252,7 @@ public class FlashcardsController {
         System.out.println("Word deleted successfully.");
     }
 
-    /*private void modifyRecord() {
+    private void modifyRecord() {
         System.out.print("Enter a keyword to search for the word you want to modify: ");
         String searchKeyword = scanner.nextLine();
 
@@ -312,7 +320,8 @@ public class FlashcardsController {
             return;
         }
 
-        entryRepoInterface.(wordToModify);
+        entryRepoInterface.save(wordToModify);
         System.out.println("Word modified successfully.");
-    }*/
+    }
+
 }
