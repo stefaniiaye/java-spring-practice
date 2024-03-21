@@ -35,13 +35,26 @@ public class Entry {
         return pl;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setEng(String eng) {
+        this.eng = eng;
+    }
+
+    public void setDe(String de) {
+        this.de = de;
+    }
+
+    public void setPl(String pl) {
+        this.pl = pl;
+    }
+
     @Override
     public String toString() {
-        return "Entry{" +
-                "Id=" + id +
-                ", eng='" + eng + '\'' +
-                ", de='" + de + '\'' +
-                ", pl='" + pl + '\'' +
-                '}';
+        return "(Eng) " + eng + "\t" +
+                "(De) " + de + "\t" +
+                "(Pl) " + pl ;
     }
 }

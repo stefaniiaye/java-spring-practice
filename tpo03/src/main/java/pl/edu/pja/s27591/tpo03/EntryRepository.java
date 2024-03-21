@@ -24,29 +24,23 @@ public class EntryRepository implements EntryRepoInterface {
         return entityManager.createQuery("SELECT e FROM Entry e", Entry.class).getResultList();
     }
 
-    @Override
     public Entry getEntryById(Long id) {
         return entityManager.find(Entry.class, id);
     }
 
     @Override
-    public List<Entry> searchEntries(String query) {
-        return entityManager.createQuery("SELECT e FROM Entry e WHERE e.eng LIKE :query OR e.de LIKE :query OR e.pl LIKE :query", Entry.class)
-                .setParameter("query", "%" + query + "%")
+    public List<Entry> searchEntries(String word) {
+        return entityManager.createQuery("SELECT e FROM Entry e WHERE LOWER(e.eng)" +
+                        " LIKE LOWER(:word) OR LOWER(e.de) LIKE LOWER(:word) OR LOWER(e.pl) LIKE LOWER(:word)", Entry.class)
+                .setParameter("word", "%" + word.toLowerCase() + "%")
                 .getResultList();
     }
 
+
     @Override
-    public List<Entry> sortEntriesByLanguage(String language, boolean ascending) {
-        String queryString = "SELECT e FROM Entry e ORDER BY ";
-        if (language.equals("eng")) {
-            queryString += "e.eng";
-        } else if (language.equals("de")) {
-            queryString += "e.de";
-        } else if (language.equals("pl")) {
-            queryString += "e.pl";
-        }
-        queryString += ascending ? " ASC" : " DESC";
+    public List<Entry> sortEntriesByLanguage(String lang, boolean asc) {
+        String queryString = "SELECT e FROM Entry e ORDER BY e." + lang
+                + (asc ? " ASC" : " DESC");
         return entityManager.createQuery(queryString, Entry.class).getResultList();
     }
 
