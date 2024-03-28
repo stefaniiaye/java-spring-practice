@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SpringDataEntryRepoInterface extends CrudRepository<Entry, Long> {
+
     Entry save(Entry entry);
 
     Optional<Entry> findById(Long id);
@@ -15,8 +16,7 @@ public interface SpringDataEntryRepoInterface extends CrudRepository<Entry, Long
 
     List<Entry> findAll(Sort sort);
 
-    List<Entry> searchEntries(String word);
+    List<Entry> findAllByEngContainingOrDeContainingOrPlContaining(String engKeyword, String deKeyword, String plKeyword);
 
     void deleteById(Long id);
-
 }

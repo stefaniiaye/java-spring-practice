@@ -1,6 +1,7 @@
 package pl.edu.pja.s27591.tpo03;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
@@ -13,18 +14,20 @@ public class FlashcardsController {
     private final SpringDataEntryRepoInterface entryRepoInterface;
     private DisplayInterface displayInterface;
     private final Scanner scanner;
+    public boolean isRunning;
 
     @Autowired
     public FlashcardsController(SpringDataEntryRepoInterface entryRepoInterface, DisplayInterface displayInterface, Scanner scanner) {
         this.entryRepoInterface = entryRepoInterface;
         this.displayInterface = displayInterface;
         this.scanner = scanner;
+        this.isRunning = true;
     }
 
     public void runMenu() throws IOException {
         System.out.println("Welcome to the language flashcards application!\n" +
                 "What would you like to do?");
-        while (true) {
+        while (isRunning) {
             System.out.println("1. Add a new word to the dictionary");
             System.out.println("2. Display all words from the dictionary");
             System.out.println("3. Search for a word");
@@ -48,7 +51,7 @@ public class FlashcardsController {
                     case 3:
                         System.out.print("Enter the word to search for: ");
                         String searchTerm = scanner.nextLine();
-                        List<Entry> searchResults = entryRepoInterface.searchEntries(searchTerm);
+                        List<Entry> searchResults = entryRepoInterface.findAllByEngContainingOrDeContainingOrPlContaining(searchTerm,searchTerm,searchTerm);
                         if (!searchResults.isEmpty()) {
                             System.out.println("Here is what was found");
                             displayInterface.displayDict(searchResults);
@@ -66,6 +69,7 @@ public class FlashcardsController {
                         break;
                     case 7:
                         System.out.println("Bye-bye...");
+                        isRunning = false;
                         return;
                     default:
                         System.out.println("Oops, there is no such option. Please try again.");
@@ -166,10 +170,10 @@ public class FlashcardsController {
             System.out.println("7. Return to main menu");
 
             System.out.print("Choose an option: ");
-            int option = scanner.nextInt();
+            sortOption = scanner.nextInt();
             scanner.nextLine();
 
-            switch (option) {
+            switch (sortOption) {
                 case 1:
                     displaySortedDict("eng", true);
                     break;
@@ -191,14 +195,12 @@ public class FlashcardsController {
                 case 7:
                     return;
                 default:
-                    System.out.println("Invalid option. Returning to main menu.");
-
-
+                    System.out.println("Oops, there is no such option. Please try again.");
             }
         } else if (sortOption == 2) {
             displayInterface.displayDict(entryRepoInterface.findAll());
         } else {
-            System.out.println("Invalid option. Returning to main menu.");
+            System.out.println("Oops, there is no such option. Please try again.");
         }
     }
 
@@ -214,27 +216,27 @@ public class FlashcardsController {
 
     private void deleteRecord() {
         System.out.print("Enter a keyword to search for the word you want to delete: ");
-        String searchKeyword = scanner.nextLine();
+        String keyword = scanner.nextLine();
 
-        List<Entry> searchResults = entryRepoInterface.searchEntries(searchKeyword);
+        List<Entry> searchResults = entryRepoInterface.findAllByEngContainingOrDeContainingOrPlContaining(keyword,keyword,keyword);
         if (searchResults.isEmpty()) {
-            System.out.println("No matching words found.");
+            System.out.println("No results.");
             return;
         }
 
-        System.out.println("Matching words:");
+        System.out.println("Results of search:");
         int i = 1;
         for (Entry entry : searchResults) {
             System.out.println(i + ". " + entry.toString());
             i++;
         }
 
-        System.out.print("Enter the number of the word you want to delete: ");
+        System.out.print("Which word would you like to delete?");
         int selectedNumber = scanner.nextInt();
         scanner.nextLine();
 
         if (selectedNumber < 1 || selectedNumber > searchResults.size()) {
-            System.out.println("Invalid selection. Deletion canceled.");
+            System.out.println("Oops, there is no such option. Please try again.");
             return;
         }
 
@@ -254,30 +256,29 @@ public class FlashcardsController {
 
     private void modifyRecord() {
         System.out.print("Enter a keyword to search for the word you want to modify: ");
-        String searchKeyword = scanner.nextLine();
+        String keyword = scanner.nextLine();
 
-        List<Entry> searchResults = entryRepoInterface.searchEntries(searchKeyword);
+        List<Entry> searchResults = entryRepoInterface.findAllByEngContainingOrDeContainingOrPlContaining(keyword,keyword,keyword);
         if (searchResults.isEmpty()) {
-            System.out.println("No matching words found.");
+            System.out.println("No results.");
             return;
         }
 
-        System.out.println("Matching words:");
+        System.out.println("Results of search:");
         int i = 1;
         for (Entry entry : searchResults) {
             System.out.println(i + ". " + entry.toString());
             i++;
         }
 
-        System.out.print("Enter the number of the word you want to modify: ");
+        System.out.print("Which word would you like to modify?");
         int selectedNumber = scanner.nextInt();
         scanner.nextLine();
 
         if (selectedNumber < 1 || selectedNumber > searchResults.size()) {
-            System.out.println("Invalid selection. Modification canceled.");
+            System.out.println("Oops, there is no such option. Please try again.");
             return;
         }
-
         Entry wordToModify = searchResults.get(selectedNumber - 1);
 
         System.out.println("Select the language to modify:");
@@ -306,10 +307,9 @@ public class FlashcardsController {
                 wordToModify.setPl(modifiedWord);
                 break;
             default:
-                System.out.println("Invalid option. Modification canceled.");
+                System.out.println("Oops, there is no such option. Please try again.");
                 return;
         }
-
         System.out.println("Modified word:");
         System.out.println(wordToModify.toString());
 
@@ -319,7 +319,6 @@ public class FlashcardsController {
             System.out.println("Modification canceled.");
             return;
         }
-
         entryRepoInterface.save(wordToModify);
         System.out.println("Word modified successfully.");
     }
