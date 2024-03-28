@@ -18,21 +18,26 @@ public class Tpo04BlogApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Tpo04BlogApplication.class, args);
 
+
         UserService userService = context.getBean(UserService.class);
-        User user = new User("user@gmail.com");
-        userService.addUser(user);
+        User user1 = new User("user@gmail.com");
+        User user2 = new User("lol@pjatk.com");
+        userService.addUser(user1);
+        userService.addUser(user2);
 
         userService.viewUsers();
-//        userService.deleteUser(31L);
-//        userService.viewUsers();
+        //userService.deleteUser(31L);
+        //userService.viewUsers();
 
         BlogService blogService = context.getBean(BlogService.class);
-        Blog blog = new Blog("blog228",user);
-        blogService.addBlog(blog);
+        Blog blog1 = new Blog("blog228",user1);
+        Blog blog2 = new Blog("blogmama",user2);
+        blogService.addBlog(blog1);
+        blogService.addBlog(blog2);
 
-//        blogService.viewBlogs();
-//        blogService.deleteBlog(21L);
-//        blogService.viewBlogs();
+        blogService.viewBlogs();
+        blogService.deleteBlog(21L);
+        blogService.viewBlogs();
 
         RoleService roleService = context.getBean(RoleService.class);
         Role role1 = new Role("Cat");
@@ -40,14 +45,16 @@ public class Tpo04BlogApplication {
         roleService.addRole(role1);
         roleService.addRole(role2);
 
-//        roleService.viewRoles();
-//        roleService.deleteRole(21L);
-//        roleService.viewRoles();
+
+        roleService.viewRoles();
+        roleService.deleteRole(21L);
+        roleService.viewRoles();
 
 
         ArticleService articleService = context.getBean(ArticleService.class);
-        Article article = new Article("Why women kill", user, blog);
+        Article article = new Article("Why women kill", user2, blog2);
         articleService.addArticle(article);
+
 
         articleService.viewArticles();
         articleService.deleteArticle(21L);

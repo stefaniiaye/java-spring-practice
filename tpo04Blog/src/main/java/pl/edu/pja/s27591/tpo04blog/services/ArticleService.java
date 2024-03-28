@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.s27591.tpo04blog.repositories.ArticleRepository;
 import pl.edu.pja.s27591.tpo04blog.entities.Article;
+import pl.edu.pja.s27591.tpo04blog.repositories.BlogRepository;
+import pl.edu.pja.s27591.tpo04blog.repositories.UserRepository;
 
 @Service
 public class ArticleService {

@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.s27591.tpo04blog.entities.Blog;
+import pl.edu.pja.s27591.tpo04blog.repositories.ArticleRepository;
 import pl.edu.pja.s27591.tpo04blog.repositories.BlogRepository;
 
 @Service
@@ -12,6 +13,9 @@ public class BlogService {
 
     @Autowired
     private BlogRepository blogRepository;
+
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @Transactional
     public void addBlog(Blog blog) {
@@ -21,6 +25,7 @@ public class BlogService {
     @Transactional
     public void deleteBlog(Long blogId) {
         if (blogRepository.existsById(blogId)) {
+            articleRepository.deleteArticlesByBlogId(blogId);
             blogRepository.deleteById(blogId);
         } else {
             throw new EntityNotFoundException("There is no such blog is our database;(");
