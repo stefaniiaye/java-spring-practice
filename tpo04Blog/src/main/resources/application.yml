@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: TPO_04
+  h2:
+    console:
+      path: /my-console
+  datasource:
+    url: jdbc:h2:mem:blog
+    username: sa
+    password:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+    init:
+      data-locations: classpath:sql-data/*.sql
