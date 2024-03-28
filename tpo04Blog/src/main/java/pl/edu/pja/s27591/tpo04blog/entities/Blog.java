@@ -29,10 +29,7 @@ public class Blog {
 
     @Override
     public String toString() {
-        return "Blog{" +
-                "id=" + id +
-                ", name='" + name +
-                '}';
+        return "Blog: " + name + ", ID: " + id;
     }
 
     public Long getId() {

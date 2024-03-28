@@ -26,7 +26,7 @@ public class RoleService {
         }
     }
 
-    public void viewArticles() {
+    public void viewRoles() {
         for(Role r : roleRepository.findAll()){
             System.out.println(r);
         }

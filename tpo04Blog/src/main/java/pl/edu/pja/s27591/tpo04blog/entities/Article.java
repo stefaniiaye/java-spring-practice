@@ -25,10 +25,7 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title +
-                '}';
+        return "Article: " + title + ", ID: " + id;
     }
 
     public Long getId() {
