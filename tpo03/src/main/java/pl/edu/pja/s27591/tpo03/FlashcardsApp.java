@@ -13,5 +13,6 @@ public class FlashcardsApp {
         ConfigurableApplicationContext context = SpringApplication.run(FlashcardsApp.class);
         FlashcardsController controller = context.getBean(FlashcardsController.class);
         controller.runMenu();
+        if(!controller.isRunning) SpringApplication.exit(context);
     }
 }
