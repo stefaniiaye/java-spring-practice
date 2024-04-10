@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Current Time</title>
+</head>
+<body>
+<h1>Current Time</h1>
+<form action="/current-time" method="get">
+    <label for="format">Enter Time Format:</label>
+    <input type="text" id="format" name="format" value="hh:mm:ss.SSSS YYYY/MM/dd">
+    <br>
+    <label for="timezone">Enter Time Zone:</label>
+    <input type="text" id="timezone" name="timeZone" value="CET">
+    <br>
+    <button type="submit">Get Current Time</button>
+</form>
+</body>
+</html>

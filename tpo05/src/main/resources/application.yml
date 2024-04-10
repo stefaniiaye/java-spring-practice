@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: tpo05
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
