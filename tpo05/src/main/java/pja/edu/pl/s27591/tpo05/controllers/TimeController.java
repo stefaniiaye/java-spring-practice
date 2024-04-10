@@ -15,18 +15,35 @@ public class TimeController {
     @GetMapping("/current-time")
     @ResponseBody
     public String currentTime(@RequestParam(required = false, defaultValue = "hh:mm:ss.SSSS YYYY/MM/dd") String format,
-                              @RequestParam(required = false, defaultValue = "CET")String timeZone){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
-        Date date = new Date();
+                              @RequestParam(required = false, defaultValue = "CET") String timeZone) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+            Date date = new Date();
 
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timeZone));
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timeZone));
 
-        return "<h2> Current Time: </h2>\n " + simpleDateFormat.format(date);
+            return "<h2> Current Time: </h2>\n " + simpleDateFormat.format(date);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss.SSSS YYYY/MM/dd");
+            Date date = new Date();
+
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timeZone));
+
+            String error = "<h2>Error</h2>\n" +
+                    "<p>Oops, something went wrong, displaying time using default values.</p>\n" +
+                    "<h2>Time:</h2>" +
+                    "<p>" + simpleDateFormat.format(date) + "</p>";
+
+            return error;
+        }
     }
 
     @GetMapping("/current-year")
     @ResponseBody
-    public String currentYear(){
+    public String currentYear() {
         Calendar calendar = Calendar.getInstance();
         return "<h2> Current Year: </h2>" + "<h3>" + String.valueOf(calendar.get(Calendar.YEAR)) + "</h3>";
     }
