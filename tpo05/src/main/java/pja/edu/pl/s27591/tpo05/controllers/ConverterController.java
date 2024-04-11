@@ -16,13 +16,13 @@ public class ConverterController {
     )
     {
         try {
-            int decimal = Integer.parseInt(String.valueOf(num), currBase);
+            int decimal = toDec(num, currBase);
 
-            String result = Integer.toString(decimal, base);
+            String result = fromDec(decimal, base);
 
-            String binRes = Integer.toBinaryString(decimal);
-            String octRes = Integer.toOctalString(decimal);
-            String hexRes = Integer.toHexString(decimal);
+            String binRes = fromDec(decimal, 2);
+            String octRes = fromDec(decimal, 8);
+            String hexRes = Integer.toHexString(decimal).toUpperCase();
 
             String output = "<h2>Result: " + result + "</h2>" +
                     "<h3>Additionally:</h3>" +
@@ -36,5 +36,26 @@ public class ConverterController {
             e.printStackTrace();
             return "<h2>Oops, something went wrong:(\nPlease, try again.</h2>";
         }
+    }
+
+    private int toDec(int num, int base) {
+        int decimal = 0;
+        int power = 0;
+        while (num > 0) {
+            decimal += (int) ((num % 10) * Math.pow(base, power));
+            num /= 10;
+            power++;
+        }
+        return decimal;
+    }
+
+    private String fromDec(int decimal, int base) {
+        if (decimal == 0) return "0";
+        StringBuilder result = new StringBuilder();
+        while (decimal > 0) {
+            result.insert(0, (decimal % base));
+            decimal /= base;
+        }
+        return result.toString();
     }
 }
