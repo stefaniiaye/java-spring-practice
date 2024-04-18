@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Fake data generator</title>
+    <link rel="stylesheet" href="/pageStyle.css">
 </head>
 <body>
 <h1>Welcome to Fake data generator!</h1>
@@ -30,10 +31,10 @@
     <br>
     <input type="checkbox" name="address"> Address
     <input type="checkbox" name="university"> University
-    <input type="checkbox" name="country"> Country of Origin
-    <input type="checkbox" name="favColor"> Favourite Color
+    <input type="checkbox" name="country"> Country of origin
+    <input type="checkbox" name="favColor"> Favourite color
     <br>
-    <input type="checkbox" name="favAnimal"> Favourite Animal
+    <input type="checkbox" name="favAnimal"> Favourite animal
     <input type="checkbox" name="email"> Email
     <input type="checkbox" name="job"> Job
     <input type="checkbox" name="car"> Car
@@ -41,23 +42,30 @@
     <button type="submit">Generate!</button>
 </form>
 
+<div th:if="${errorMessage != null}" style="color: #930808;">
+    <h1 th:text="${errorMessage}"></h1>
+</div>
+
 <h1 th:if="${generatedData != null}">Here is data generated for you:</h1>
-<table border="1" th:if="${generatedData != null}">
-    <thead>
+<table th:if="${generatedData != null}">
+
+    <thead th:if="${headers != null}">
     <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Date of Birth</th>
-        <th th:if="${address}">Address</th>
-        <th th:if="${university}">University</th>
-        <th th:if="${country}">Country of Origin</th>
-        <th th:if="${favColor}">Favourite Color</th>
-        <th th:if="${favAnimal}">Favourite Animal</th>
-        <th th:if="${email}">Email</th>
-        <th th:if="${job}">Job</th>
-        <th th:if="${car}">Car</th>
+        <th th:text="${headers.get(language).get(0)}"></th>
+        <th th:text="${headers.get(language).get(1)}"></th>
+        <th th:text="${headers.get(language).get(2)}"></th>
+
+        <th th:if="${address}" th:text="${headers.get(language).get(3)}"></th>
+        <th th:if="${university}" th:text="${headers.get(language).get(4)}"></th>
+        <th th:if="${country}" th:text="${headers.get(language).get(5)}"></th>
+        <th th:if="${favColor}" th:text="${headers.get(language).get(6)}"></th>
+        <th th:if="${favAnimal}" th:text="${headers.get(language).get(7)}"></th>
+        <th th:if="${email}" th:text="${headers.get(language).get(8)}"></th>
+        <th th:if="${job}" th:text="${headers.get(language).get(9)}"></th>
+        <th th:if="${car}" th:text="${headers.get(language).get(10)}"></th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="person : ${generatedData.personSet}">
         <td th:text="${person.name}"></td>

@@ -1,0 +1,11 @@
+en: Name, Surname, Date of birth, Address, University, Country of origin, Favourite color, Favourite animal, Email, Job, Car
+uk: Ім'я, Прізвище, Дата народження, Адреса, Університет, Країна походження, Улюблений колір, Улюблена тварина, Електронна пошта, Робота, Автомобіль
+pl: Imię, Nazwisko, Data urodzenia, Adres, Uniwersytet, Kraj pochodzenia, Ulubiony kolor, Ulubione zwierzę, Email, Praca, Samochód
+ja: 名前, 姓, 生年月日, 住所, 大学, 出身国, 好きな色, 好きな動物, メール, 仕事, 車
+sr: Име, Презиме, Датум рођења, Адреса, Универзитет, Земља порекла, Омиљена боја, Омиљена животиња, Е-пошта, Посао, Аутомобил
+de: Name, Nachname, Geburtsdatum, Adresse, Universität, Herkunftsland, Lieblingsfarbe, Lieblingstier, E-Mail, Beruf, Auto
+ar: الاسم, اللقب, تاريخ الميلاد, العنوان, الجامعة, بلد المنشأ, اللون المفضل, الحيوان المفضل, البريد الإلكتروني, الوظيفة, السيارة
+el: Όνομα, Επώνυμο, Ημερομηνία γέννησης, Διεύθυνση, Πανεπιστήμιο, Χώρα καταγωγής, Αγαπημένο χρώμα, Αγαπημένο ζώο, Email, Επάγγελμα, Αυτοκίνητο
+es: Nombre, Apellido, Fecha de nacimiento, Dirección, Universidad, País de origen, Color favorito, Animal favorito, Correo electrónico, Trabajo, Coche
+fr: Prénom, Nom, Date de naissance, Adresse, Université, Pays d'origine, Couleur préférée, Animal préféré, Email, Emploi, Voiture
+pt: Nome, Sobrenome, Data de nascimento, Endereço, Universidade, País de origem, Cor favorita, Animal favorito, Email, Emprego, Carro
